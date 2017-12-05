@@ -9,7 +9,7 @@
 import UIKit
 
 class FirstViewController: UIViewController {
-    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "First View"
@@ -35,7 +35,7 @@ class FirstViewController: UIViewController {
         // thirdButton
         let thirdButton: UIButton = UIButton.init(type: UIButtonType.system)
         thirdButton.frame = CGRect.init(x: 8, y: 100, width: 200, height: 30)
-        thirdButton.setTitle("Popover+Up", for: .normal)
+        thirdButton.setTitle("Popover+Left", for: .normal)
         thirdButton.contentHorizontalAlignment = .left
         thirdButton.addTarget(self, action: #selector (onPressThirdButton (sender:)),
                               for: UIControlEvents.touchUpInside)
@@ -48,6 +48,22 @@ class FirstViewController: UIViewController {
         fourthButton.addTarget(self, action: #selector (onPressFourthButton (sender:)),
                                for: UIControlEvents.touchUpInside)
         self.view.addSubview(fourthButton)
+        // fifthButton
+        let fifthButton: UIButton = UIButton.init(type: UIButtonType.system)
+        fifthButton.frame = CGRect.init(x: 8, y: 192, width: 200, height: 30)
+        fifthButton.setTitle("Popover+Navigation", for: .normal)
+        fifthButton.contentHorizontalAlignment = .left
+        fifthButton.addTarget(self, action: #selector (onPressFifthButton (sender:)),
+                               for: UIControlEvents.touchUpInside)
+        self.view.addSubview(fifthButton)
+        // sixthButton
+        let sixthButton: UIButton = UIButton.init(type: UIButtonType.system)
+        sixthButton.frame = CGRect.init(x: 8, y: 238, width: 200, height: 30)
+        sixthButton.setTitle("Popover+CustomTransition", for: .normal)
+        sixthButton.contentHorizontalAlignment = .left
+        sixthButton.addTarget(self, action: #selector (onPressSixthButton (sender:)),
+                               for: UIControlEvents.touchUpInside)
+        self.view.addSubview(sixthButton)
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,7 +71,7 @@ class FirstViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // Mark: - Callback function for popover button.
+    // MARK: - Callback function onPress button.
     @objc func onPressFirstButton(sender: UIButton) {
         let popover = UIAlertController(title: "Alert", message: "Popover+AlertView", preferredStyle: UIAlertControllerStyle.alert
         )
@@ -114,7 +130,7 @@ class FirstViewController: UIViewController {
         // 5 (optional)
         popoverViewController.popoverPresentationController?.sourceRect = sender.bounds
         // 6 (optional)
-        popoverViewController.popoverPresentationController?.permittedArrowDirections = .up
+        popoverViewController.popoverPresentationController?.permittedArrowDirections = .left
         present(popoverViewController, animated: true, completion: nil)
     }
     
@@ -129,10 +145,40 @@ class FirstViewController: UIViewController {
         popover.popoverPresentationController?.delegate = self
         popover.popoverPresentationController?.sourceView = sender
         popover.popoverPresentationController?.sourceRect = sender.bounds
-        popover.popoverPresentationController?.permittedArrowDirections = .up
+        popover.popoverPresentationController?.permittedArrowDirections = .left
         present(popover, animated: true, completion: nil)
-        //        let secondView : SecondViewController = SecondViewController()
-        //        self.navigationController?.pushViewController(secondView, animated: true)
+    }
+    
+    @objc func onPressFifthButton(sender: UIButton) {
+        let secondView : SecondViewController = SecondViewController()
+        let popover = UINavigationController(rootViewController: secondView)
+        popover.preferredContentSize = CGSize.init(width: 300, height: 300)
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            popover.modalPresentationStyle = .formSheet
+        }else{
+            popover.modalPresentationStyle = .popover
+        }
+        popover.popoverPresentationController?.delegate = self
+        popover.popoverPresentationController?.sourceView = sender
+        popover.popoverPresentationController?.sourceRect = sender.bounds
+        popover.popoverPresentationController?.permittedArrowDirections = .left
+        present(popover, animated: true, completion: nil)
+    }
+    
+    @objc func onPressSixthButton(sender: UIButton) {
+        let secondView : SecondViewController = SecondViewController()
+        let popover = UINavigationController(rootViewController: secondView)
+        popover.preferredContentSize = CGSize.init(width: 300, height: 300)
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            popover.modalPresentationStyle = .formSheet
+        }else{
+            popover.modalPresentationStyle = .popover
+        }
+        popover.popoverPresentationController?.delegate = self
+        popover.popoverPresentationController?.sourceView = sender
+        popover.popoverPresentationController?.sourceRect = sender.bounds
+        popover.popoverPresentationController?.permittedArrowDirections = .left
+        present(popover, animated: true, completion: nil)
     }
     
     @objc func onPressRightBarButtonItem(sender: UIBarButtonItem) {
@@ -146,7 +192,8 @@ class FirstViewController: UIViewController {
     }
     
 }
-// Mark: - UIPopoverPresentationControllerDelegate
+
+// MARK: - - UIPopoverPresentationControllerDelegate
 extension FirstViewController: UIPopoverPresentationControllerDelegate{
     
     func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
@@ -156,7 +203,6 @@ extension FirstViewController: UIPopoverPresentationControllerDelegate{
     
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         // Did Dismiss
-        
     }
     
     // UIAdaptivePresentationControllerDelegate
