@@ -38,15 +38,15 @@ class FirstViewController: UIViewController {
         thirdButton.setTitle("Popover+Up", for: .normal)
         thirdButton.contentHorizontalAlignment = .left
         thirdButton.addTarget(self, action: #selector (onPressThirdButton (sender:)),
-                               for: UIControlEvents.touchUpInside)
+                              for: UIControlEvents.touchUpInside)
         self.view.addSubview(thirdButton)
         // fourthButton
         let fourthButton: UIButton = UIButton.init(type: UIButtonType.system)
-        fourthButton.frame = CGRect.init(x: 8, y: 100, width: 200, height: 30)
-        fourthButton.setTitle("Popover+Custom", for: .normal)
+        fourthButton.frame = CGRect.init(x: 8, y: 146, width: 200, height: 30)
+        fourthButton.setTitle("Popover+FormSheet", for: .normal)
         fourthButton.contentHorizontalAlignment = .left
         fourthButton.addTarget(self, action: #selector (onPressFourthButton (sender:)),
-                              for: UIControlEvents.touchUpInside)
+                               for: UIControlEvents.touchUpInside)
         self.view.addSubview(fourthButton)
     }
     
@@ -69,6 +69,13 @@ class FirstViewController: UIViewController {
             print("OK button tapped")
         })
         popover.addAction(okAction)
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            popover.modalPresentationStyle = .popover
+            popover.popoverPresentationController?.delegate = self
+            popover.popoverPresentationController?.sourceView = sender
+            popover.popoverPresentationController?.sourceRect = sender.bounds
+            popover.popoverPresentationController?.permittedArrowDirections = .left
+        }
         present(popover, animated: true, completion: nil)
     }
     
@@ -84,6 +91,13 @@ class FirstViewController: UIViewController {
             print("OK button tapped")
         })
         popover.addAction(okAction)
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            popover.modalPresentationStyle = .popover
+            popover.popoverPresentationController?.delegate = self
+            popover.popoverPresentationController?.sourceView = sender
+            popover.popoverPresentationController?.sourceRect = sender.bounds
+            popover.popoverPresentationController?.permittedArrowDirections = .left
+        }
         present(popover, animated: true, completion: nil)
     }
     
@@ -105,14 +119,20 @@ class FirstViewController: UIViewController {
     }
     
     @objc func onPressFourthButton(sender: UIButton) {
-        let popoverViewController : UIViewController = UIViewController()
-        popoverViewController.preferredContentSize = CGSize.init(width: 300, height: 300)
-        popoverViewController.modalPresentationStyle = .popover
-        popoverViewController.popoverPresentationController?.delegate = self
-        popoverViewController.popoverPresentationController?.sourceView = sender
-        popoverViewController.popoverPresentationController?.sourceRect = sender.bounds
-        popoverViewController.popoverPresentationController?.permittedArrowDirections = .up
-        present(popoverViewController, animated: true, completion: nil)
+        let popover : SecondViewController = SecondViewController()
+        popover.preferredContentSize = CGSize.init(width: 300, height: 300)
+        if (UIDevice.current.userInterfaceIdiom == .pad){
+            popover.modalPresentationStyle = .formSheet
+        }else{
+            popover.modalPresentationStyle = .popover
+        }
+        popover.popoverPresentationController?.delegate = self
+        popover.popoverPresentationController?.sourceView = sender
+        popover.popoverPresentationController?.sourceRect = sender.bounds
+        popover.popoverPresentationController?.permittedArrowDirections = .up
+        present(popover, animated: true, completion: nil)
+        //        let secondView : SecondViewController = SecondViewController()
+        //        self.navigationController?.pushViewController(secondView, animated: true)
     }
     
     @objc func onPressRightBarButtonItem(sender: UIBarButtonItem) {

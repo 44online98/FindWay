@@ -13,16 +13,17 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Second View"
-        self.view.backgroundColor = UIColor.red
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "ALERT", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onPressRightBarButtonItem(sender:)))
         
         // add Button
-        let showButton: UIButton = UIButton.init(type: UIButtonType.custom)
-        showButton.frame = CGRect.init(x: 80, y: 80, width: 50, height: 50)
-        showButton.setTitle("Show", for: .normal)
-        showButton.addTarget(self, action: #selector (onPressShowButton (sender:)),
+        let closeButton: UIButton = UIButton.init(type: UIButtonType.custom)
+        closeButton.frame = CGRect.init(x: 8, y: 8, width: 200, height: 30)
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.setTitleColor(UIColor.blue, for: .normal)
+        closeButton.contentHorizontalAlignment = .left
+        closeButton.addTarget(self, action: #selector (onPressShowButton (sender:)),
                                     for: UIControlEvents.touchUpInside)
-        self.view.addSubview(showButton)
+        self.view.addSubview(closeButton)
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,21 +33,7 @@ class SecondViewController: UIViewController {
     
     // Mark: - Callback function for popover button.
      @objc func onPressShowButton(sender: UIButton) {
-        let popover : UIViewController = UIViewController()
-        // 1 (optional)
-        popover.preferredContentSize = CGSize.init(width: 300, height: 300)
-        // 2
-        popover.modalPresentationStyle = .popover
-        // 3
-        popover.popoverPresentationController?.delegate = self
-        // 4
-        popover.popoverPresentationController?.sourceView = sender
-        // 5 (optional)
-        popover.popoverPresentationController?.sourceRect = sender.bounds
-        // 6 (optional)
-        popover.popoverPresentationController?.permittedArrowDirections = .up
-        
-        present(popover, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
      @objc func onPressRightBarButtonItem(sender: UIBarButtonItem) {
@@ -54,14 +41,13 @@ class SecondViewController: UIViewController {
         // 1 (optional)
         popover.preferredContentSize = CGSize.init(width: 300, height: 300)
         // 2
-        popover.modalPresentationStyle = .popover
+        popover.modalPresentationStyle = .formSheet
         // 3
         popover.popoverPresentationController?.delegate = self
         // 4
         popover.popoverPresentationController?.barButtonItem = sender
         // 5 (optional)
         popover.popoverPresentationController?.permittedArrowDirections = .up
-        
         present(popover, animated: true, completion: nil)
     }
     
@@ -77,6 +63,10 @@ extension SecondViewController:  UIPopoverPresentationControllerDelegate{
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
         // Did Dismiss
        
+    }
+    
+    func popoverPresentationController(_ popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverTo rect: UnsafeMutablePointer<CGRect>, in view: AutoreleasingUnsafeMutablePointer<UIView>) {
+        
     }
     
     // UIAdaptivePresentationControllerDelegate
