@@ -14,7 +14,6 @@ class ThirdViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Third View"
         navigationController?.navigationBar.isTranslucent  = false
-        
     }
 
     override func didReceiveMemoryWarning() {

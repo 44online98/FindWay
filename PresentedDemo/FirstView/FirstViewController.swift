@@ -9,6 +9,7 @@
 import UIKit
 
 class FirstViewController: UIViewController {
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +17,7 @@ class FirstViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent  = false
         // rightBarButtonItem
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Bar+Right", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onPressRightBarButtonItem(sender:)))
+        
         // firstButton
         let firstButton: UIButton = UIButton.init(type: UIButtonType.system)
         firstButton.frame = CGRect.init(x: 8, y: 8, width: 200, height: 30)
@@ -73,122 +75,124 @@ class FirstViewController: UIViewController {
     
     // MARK: - Callback function onPress button.
     @objc func onPressFirstButton(sender: UIButton) {
-        let popover = UIAlertController(title: "Alert", message: "Popover+AlertView", preferredStyle: UIAlertControllerStyle.alert
+        let popoverView = UIAlertController(title: "Alert", message: "Popover+AlertView", preferredStyle: UIAlertControllerStyle.alert
         )
         
         let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alert :UIAlertAction!) in
             print("Delete button tapped")
         })
-        popover.addAction(deleteAction)
+        popoverView.addAction(deleteAction)
         
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(alert :UIAlertAction!) in
             print("OK button tapped")
         })
-        popover.addAction(okAction)
+        popoverView.addAction(okAction)
         if (UIDevice.current.userInterfaceIdiom == .pad){
-            popover.modalPresentationStyle = .popover
-            popover.popoverPresentationController?.delegate = self
-            popover.popoverPresentationController?.sourceView = sender
-            popover.popoverPresentationController?.sourceRect = sender.bounds
-            popover.popoverPresentationController?.permittedArrowDirections = .left
+            popoverView.modalPresentationStyle = .popover
+            popoverView.popoverPresentationController?.delegate = self
+            popoverView.popoverPresentationController?.sourceView = sender
+            popoverView.popoverPresentationController?.sourceRect = sender.bounds
+            popoverView.popoverPresentationController?.permittedArrowDirections = .left
         }
-        present(popover, animated: true, completion: nil)
+        present(popoverView, animated: true, completion: nil)
     }
     
     @objc func onPressSecondButton(sender: UIButton) {
-        let popover = UIAlertController(title: "ActionSheet", message: "Popover+ActionSheet", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let popoverView = UIAlertController(title: "ActionSheet", message: "Popover+ActionSheet", preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alert :UIAlertAction!) in
             print("Delete button tapped")
         })
-        popover.addAction(deleteAction)
+        popoverView.addAction(deleteAction)
         
         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(alert :UIAlertAction!) in
             print("OK button tapped")
         })
-        popover.addAction(okAction)
+        popoverView.addAction(okAction)
         if (UIDevice.current.userInterfaceIdiom == .pad){
-            popover.modalPresentationStyle = .popover
-            popover.popoverPresentationController?.delegate = self
-            popover.popoverPresentationController?.sourceView = sender
-            popover.popoverPresentationController?.sourceRect = sender.bounds
-            popover.popoverPresentationController?.permittedArrowDirections = .left
+            popoverView.modalPresentationStyle = .popover
+            popoverView.popoverPresentationController?.delegate = self
+            popoverView.popoverPresentationController?.sourceView = sender
+            popoverView.popoverPresentationController?.sourceRect = sender.bounds
+            popoverView.popoverPresentationController?.permittedArrowDirections = .left
         }
-        present(popover, animated: true, completion: nil)
+        present(popoverView, animated: true, completion: nil)
     }
     
     @objc func onPressThirdButton(sender: UIButton) {
-        let popoverViewController : UIViewController = UIViewController()
+        let popoverView : UIViewController = UIViewController()
         // 1 (optional)
-        popoverViewController.preferredContentSize = CGSize.init(width: 300, height: 300)
+        popoverView.preferredContentSize = CGSize.init(width: 300, height: 300)
         // 2
-        popoverViewController.modalPresentationStyle = .popover
+        popoverView.modalPresentationStyle = .popover
         // 3
-        popoverViewController.popoverPresentationController?.delegate = self
+        popoverView.popoverPresentationController?.delegate = self
         // 4
-        popoverViewController.popoverPresentationController?.sourceView = sender
+        popoverView.popoverPresentationController?.sourceView = sender
         // 5 (optional)
-        popoverViewController.popoverPresentationController?.sourceRect = sender.bounds
+        popoverView.popoverPresentationController?.sourceRect = sender.bounds
         // 6 (optional)
-        popoverViewController.popoverPresentationController?.permittedArrowDirections = .left
-        present(popoverViewController, animated: true, completion: nil)
+        popoverView.popoverPresentationController?.permittedArrowDirections = .left
+        present(popoverView, animated: true, completion: nil)
     }
     
     @objc func onPressFourthButton(sender: UIButton) {
-        let popover : SecondViewController = SecondViewController()
-        popover.preferredContentSize = CGSize.init(width: 300, height: 300)
+        let popoverView : SecondViewController = SecondViewController()
+        popoverView.preferredContentSize = CGSize.init(width: 300, height: 300)
         if (UIDevice.current.userInterfaceIdiom == .pad){
-            popover.modalPresentationStyle = .formSheet
+            popoverView.modalPresentationStyle = .formSheet
         }else{
-            popover.modalPresentationStyle = .popover
+            popoverView.modalPresentationStyle = .popover
         }
-        popover.popoverPresentationController?.delegate = self
-        popover.popoverPresentationController?.sourceView = sender
-        popover.popoverPresentationController?.sourceRect = sender.bounds
-        popover.popoverPresentationController?.permittedArrowDirections = .left
-        present(popover, animated: true, completion: nil)
+        popoverView.popoverPresentationController?.delegate = self
+        popoverView.popoverPresentationController?.sourceView = sender
+        popoverView.popoverPresentationController?.sourceRect = sender.bounds
+        popoverView.popoverPresentationController?.permittedArrowDirections = .left
+        present(popoverView, animated: true, completion: nil)
     }
     
     @objc func onPressFifthButton(sender: UIButton) {
         let secondView : SecondViewController = SecondViewController()
-        let popover = UINavigationController(rootViewController: secondView)
-        popover.preferredContentSize = CGSize.init(width: 300, height: 300)
+        let popoverView = UINavigationController(rootViewController: secondView)
+        popoverView.preferredContentSize = CGSize.init(width: 300, height: 300)
         if (UIDevice.current.userInterfaceIdiom == .pad){
-            popover.modalPresentationStyle = .formSheet
+            popoverView.modalPresentationStyle = .formSheet
         }else{
-            popover.modalPresentationStyle = .popover
+            popoverView.modalPresentationStyle = .popover
         }
-        popover.popoverPresentationController?.delegate = self
-        popover.popoverPresentationController?.sourceView = sender
-        popover.popoverPresentationController?.sourceRect = sender.bounds
-        popover.popoverPresentationController?.permittedArrowDirections = .left
-        present(popover, animated: true, completion: nil)
+        popoverView.popoverPresentationController?.delegate = self
+        popoverView.popoverPresentationController?.sourceView = sender
+        popoverView.popoverPresentationController?.sourceRect = sender.bounds
+        popoverView.popoverPresentationController?.permittedArrowDirections = .left
+        present(popoverView, animated: true, completion: nil)
     }
     
     @objc func onPressSixthButton(sender: UIButton) {
         let secondView : SecondViewController = SecondViewController()
-        let popover = UINavigationController(rootViewController: secondView)
-        popover.preferredContentSize = CGSize.init(width: 300, height: 300)
-        if (UIDevice.current.userInterfaceIdiom == .pad){
-            popover.modalPresentationStyle = .formSheet
-        }else{
-            popover.modalPresentationStyle = .popover
-        }
-        popover.popoverPresentationController?.delegate = self
-        popover.popoverPresentationController?.sourceView = sender
-        popover.popoverPresentationController?.sourceRect = sender.bounds
-        popover.popoverPresentationController?.permittedArrowDirections = .left
-        present(popover, animated: true, completion: nil)
+        self.navigationController?.pushViewController(secondView, animated: true)
+//        let secondView : SecondViewController = SecondViewController()
+//        let popoverView = UINavigationController(rootViewController: secondView)
+//        popoverView.preferredContentSize = CGSize.init(width: 300, height: 300)
+//        if (UIDevice.current.userInterfaceIdiom == .pad){
+//            popoverView.modalPresentationStyle = .formSheet
+//        }else{
+//            popoverView.modalPresentationStyle = .popover
+//        }
+//        popoverView.popoverPresentationController?.delegate = self
+//        popoverView.popoverPresentationController?.sourceView = sender
+//        popoverView.popoverPresentationController?.sourceRect = sender.bounds
+//        popoverView.popoverPresentationController?.permittedArrowDirections = .left
+//        present(popoverView, animated: true, completion: nil)
     }
     
     @objc func onPressRightBarButtonItem(sender: UIBarButtonItem) {
-        let popoverViewController : UIViewController = UIViewController()
-        popoverViewController.preferredContentSize = CGSize.init(width: 300, height: 300)
-        popoverViewController.modalPresentationStyle = .popover
-        popoverViewController.popoverPresentationController?.delegate = self
-        popoverViewController.popoverPresentationController?.barButtonItem = sender
-        popoverViewController.popoverPresentationController?.permittedArrowDirections = .up
-        present(popoverViewController, animated: true, completion: nil)
+        let popoverView : UIViewController = UIViewController()
+        popoverView.preferredContentSize = CGSize.init(width: 300, height: 300)
+        popoverView.modalPresentationStyle = .popover
+        popoverView.popoverPresentationController?.delegate = self
+        popoverView.popoverPresentationController?.barButtonItem = sender
+        popoverView.popoverPresentationController?.permittedArrowDirections = .up
+        present(popoverView, animated: true, completion: nil)
     }
     
 }
@@ -210,3 +214,6 @@ extension FirstViewController: UIPopoverPresentationControllerDelegate{
         return .none
     }
 }
+
+
+
